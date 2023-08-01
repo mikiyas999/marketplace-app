@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "@/components/provider";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/toaster";
 const font = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
