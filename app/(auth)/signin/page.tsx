@@ -9,14 +9,15 @@ import {
 } from "@/components/ui/card";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
-import SignInForm from "@/components/form/signin-form";
+import SignInForm from "@/components/forms/signin-form";
+import Link from "next/link";
 
 export default async function SigninPage() {
   const user = await currentUser();
   if (user) {
   }
   return (
-    <div className="mx-auto max-w-lg">
+    <div className="mx-auto container max-w-lg ">
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">sign in</CardTitle>
@@ -36,7 +37,28 @@ export default async function SigninPage() {
           </div>
           <SignInForm />
         </CardContent>
-        <CardFooter>card footer</CardFooter>
+
+        <CardFooter className="flex flex-wrap items-center justify-between gap-2">
+          <div className="text-sm text-muted-foreground">
+            <span className="mr-1 hidden sm:inline-block">
+              Don&apos;t have an account?
+            </span>
+            <Link
+              aria-label="Sign up"
+              href="/signup"
+              className="text-primary underline-offset-4 transition-colors hover:underline"
+            >
+              Sign up
+            </Link>
+          </div>
+          <Link
+            aria-label="Reset password"
+            href="/signin/reset-password"
+            className="text-sm text-primary underline-offset-4 transition-colors hover:underline"
+          >
+            Reset password
+          </Link>
+        </CardFooter>
       </Card>
     </div>
   );
