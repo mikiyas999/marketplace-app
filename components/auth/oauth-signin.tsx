@@ -3,10 +3,11 @@
 import * as React from "react";
 import { isClerkAPIResponseError, useSignIn } from "@clerk/nextjs";
 import { type OAuthStrategy } from "@clerk/types";
-import { toast } from "sonner";
+import { useToast } from "@/components/ui/use-toast";
 
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
+import { ToastAction } from "@radix-ui/react-toast";
 
 const oauthProviders = [
   { name: "Google", strategy: "oauth_google", icon: "google" },
@@ -19,6 +20,7 @@ const oauthProviders = [
 }[];
 
 export function OAuthSignIn() {
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState<OAuthStrategy | null>(null);
   const { signIn, isLoaded: signInLoaded } = useSignIn();
 
@@ -37,8 +39,11 @@ export function OAuthSignIn() {
       const unknownError = "Something went wrong, please try again.";
 
       isClerkAPIResponseError(error)
-        ? toast.error(error.errors[0]?.longMessage ?? unknownError)
-        : toast.error(unknownError);
+        ? toast({
+            variant: "destructive",
+            description: error.errors[0]?.longMessage ?? unknownError,
+          })
+        : toast({ description: unknownError });
     }
   }
 
