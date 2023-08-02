@@ -21,6 +21,12 @@ export const metadata: Metadata = {
 };
 
 export default async function SignUpPage() {
+  const user = await currentUser();
+
+  if (user) {
+    redirect("/");
+  }
+
   return (
     <div className="max-w-lg container mx-auto">
       <Card>

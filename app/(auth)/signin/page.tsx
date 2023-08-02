@@ -14,7 +14,9 @@ import Link from "next/link";
 
 export default async function SigninPage() {
   const user = await currentUser();
+
   if (user) {
+    redirect("/");
   }
   return (
     <div className="mx-auto container max-w-lg ">
